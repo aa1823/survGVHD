@@ -1,0 +1,192 @@
+/*klein data from section 1.3 for project, stat 697*/
+/*load data*/
+data bmtp;
+	input g t1 t2 d1 d2 d3 ta a tc c tp p z1 z2 z3 z4 z5 z6 z7 z8 z9 z10 @@;
+	datalines;
+		1 2081 2081 0 0 0 67 1 121 1 13 1 26 33 1 0 1 1 98 0 1 0
+				.
+				.	
+				.
+				 ;
+			
+	proc print data= bmtp; run;
+		
+	/*K-M estimation*/
+			proc lifetest data=bmtp method = km plots=(survival(cl),ls,lls) graphics outsurv=a;
+			 	time tc*c(0);
+			 	strata z9 /test=all ;
+			 	symbol1 v=none color=black line=1;
+				symbol2 v=none color=black line=2;
+				run; *equality over strata;
+			
+	
+			 proc lifetest data=bmtp2 method = km plots=(survival(cl),ls,lls) graphics outsurv=a;
+			 	time tc*c(0);
+			 	strata z9 ;
+			 	symbol1 v=none color=black line=1;
+				symbol2 v=none color=black line=2;
+				test g z1 z3 z5 z7 ;
+				run;
+			
+			
+	 **graphical checking for dist of y;
+	
+			 data a2;
+			 	set a;
+			 	s=survival;
+			 	logH=log(-log(s));
+			 	lnorm=probit(1-s);
+			 	logit=log(s/(1-s));
+			 	ltc=log(tc);
+			 	run;
+		 	
+		 proc print data=a2;
+		 run;
+		
+		 title "Graphical Checking for the Proportional Hazards Property";
+		 proc gplot data=a2;
+		 	 plot logit*ltc=z9 logH*ltc=z9 lnorm*ltc=z9;
+			 symbol1 i=join width=0.5 value=triangle c=steelblue;
+			 symbol2 i=join width=0.5 value=circle c=red;
+			 symbol3 i=join width=0.5 value=circle c=green;
+			 symbol4 i=join width=0.5 value=circle c=orange;
+		 run;
+		
+					
+			
+	/*proportional hazards assumption*/
+			
+			proc gplot data=a2;
+			title "PH Assumption";
+			plot logH*tc=z9;
+			run;
+				*fails since they x-over;
+	
+	
+	/*aft modeling */
+	
+		*gamma;
+		proc lifereg data=bmtp;
+			class z9;
+			model tc*c(0) = g t1 t2 d1 d2 d3 ta a tp p z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
+			/dist = gamma;
+			run; *	aic 289.398;
+	
+		*log-normal;
+		proc lifereg data=bmtp;
+			class z9;
+			model tc*c(0) = g t1 t2 d1 d2 d3 ta a tp p z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
+			/dist = lnormal;
+			run; *aic 323.673;
+		/*	
+		proc lifereg data=bmtp2;
+			class z9;
+			model tc*c(0) = g	z1	z3	z5	z7 / dist = lnormal;
+			run; */
+			
+		*log-logistic;
+		proc lifereg data=bmtp;
+			class z9;
+			model tc*c(0) = g t1 t2 d1 d2 d3 ta a tp p z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
+			/dist = llogistic;
+			run; *aic 326.986;
+		
+		/*
+		proc lifereg data=bmtp2;
+			class z9;
+			model tc*c(0) = g	z1	z3	z5	z7 / dist = llogistic;
+			run; */
+			
+		*weibull;
+		proc lifereg data=bmtp;
+			class z9;
+			model tc*c(0) = g t1 t2 d1 d2 d3 ta a tp p z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
+			/dist = weibull;
+			run; *aic 337.711;
+			
+			/*
+			proc lifereg data=bmtp2;
+			class z9;
+			model tc*c(0) =  g z1 z3 z5 z7 / dist = weibull;
+			run; */
+			
+			
+		/* goodness of fit */
+		
+		
+				proc lifereg data=bmtp;
+					class z9;
+					model tc*c(0) = g t1 t2 d1 d2 d3 ta a tp p z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
+					/ dist = lnormal; probplot;
+					run;
+					
+					
+					/*
+				proc lifereg data=bmtp2;
+					class z9;
+					model tc*c(0) = g z1 z3 z5 z7
+					/ dist = lnormal; probplot;
+					run; */
+					
+					
+					proc lifereg data=bmtp;
+						class z9;
+						model tc*c(0) = g t1 t2 d1 d2 d3 ta a tp p z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
+						/ dist = llogistic; probplot;
+					run;
+					
+				
+					/*
+					proc lifereg data=bmtp2;
+					class z9;
+					model tc*c(0) = g z1 z3 z5 z7
+					/ dist = llogistic; probplot;
+					run;  */
+					
+					
+					proc lifereg data=bmtp ;
+						class z9;
+						model tc*c(0) = g t1 t2 d1 d2 d3 ta a tp p z1 z2 z3 z4 z5 z6 z7 z8 z9 z10
+						/ dist = weibull; probplot;
+					run;
+					
+					/*
+					proc lifereg data=bmtp2;
+					class z9;
+					model tc*c(0) = g z1 z3 z5 z7
+					/ dist = weibull covb ;
+					output out =a2 cdf=f xbeta=xb p=median STD=se; probplot;
+					run;
+					*/
+					
+					
+					proc lifereg data=bmtp ;
+						class z9;
+						model tc*c(0) = g t1 t2 d1 d2 d3 ta a tp p z1 z2 z3 z4 z5 z6 z7 z8 z10
+						/ dist = gamma  ; probplot;
+					run;
+					
+	/*backwards elimination*/
+		proc lifereg data=bmtp ;
+						class z9;
+						model tc*c(0) = g t1 t2 d1 d2 d3 ta a tp p z1 z2 z3 z4 z5 z6 z7 z8 z10
+						/ dist = gamma  ; probplot;
+					run;
+	
+		proc lifereg data=bmtp ;
+				class z9;
+				model tc*c(0) = g t2 d1 d2 d3 ta a tp p z1 z2 z3 z4 z5 z6 z7 z8 z10
+				/ dist = gamma  ; probplot;
+					run;
+					
+				
+					*final model;
+					proc lifereg data=bmtp ;
+						class z9 ;
+						model tc*c(0) = g z1 z3 z5 z7 z9
+						/ dist = gamma  ;
+					run;
+	
+	
+	
+			
