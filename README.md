@@ -32,13 +32,13 @@ Installation
 Prerequisites:
 To run this project locally, you need the following prerequisites:
 
-Python 3.x
+
 SAS OnDemand for Academics: SAS Studio (or similar statistical software)
 Installation Steps:
 
 Clone this repository.
-Install the required Python libraries using pip install -r requirements.txt.
-Set up SAS OnDemand for Academics: SAS Studio following the official documentation.
+
+Set up SAS OnDemand for Academics: SAS Studio or SAS 9 following the official documentation.
 Usage
 Usage Guide:
 To perform a similar analysis, follow these steps:
@@ -47,14 +47,9 @@ Load the dataset into your statistical software.
 Apply Kaplan-Meier survival analysis.
 Implement a Generalized Gamma Accelerated Time Failure (AFT) model.
 Interpret the results, focusing on clinical factors' impact on CGVHD onset time.
+
 Code Examples:
 
-python
-Copy code
-# Example SAS code for Kaplan-Meier analysis
-from lifelines import KaplanMeierFitter
-kmf = KaplanMeierFitter()
-kmf.fit(durations, event_observed)
 
 # Example SAS code for AFT model
 proc lifereg data=dataset;
