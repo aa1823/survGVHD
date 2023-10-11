@@ -1,9 +1,9 @@
 
 # Survival Analysis: Unraveling Factors in Post-Transplant Disease
 
-# Brief Project Description:
 
-Abstract
+
+# Abstract
 
 Graft-versus-host disease (GvHD) is a multi-systemic disorder that occurs when a transplanted organ’s immune cells recognize the host as foreign and attack the recipient’s body cells. CGvHD can occur following: 1) allogeneic bone transplantation, 2) following transplantation of solid organs that are lymphoid rich, and 3) after transfusion of un-irradiated blood. Generally, it is diagnosed after symptoms persist or appear 100 days after transplantation. 
 
