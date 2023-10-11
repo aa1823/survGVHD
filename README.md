@@ -1,83 +1,19 @@
 
-# Chronic Graft-Versus-Host Disease Analysis
-
+# Survival Analysis: Unraveling Factors in Post-Transplant Disease
 
 # Brief Project Description:
-An advanced statistical analysis of factors influencing the time to Chronic Graft-Versus-Host Disease (CGVHD) in leukemia patients who underwent allogeneic bone marrow transplants.
 
-Project Overview:
-This project delves into the factors affecting the onset of CGVHD in leukemia patients following allogeneic bone marrow transplants. Using sophisticated statistical techniques, it examines various clinical characteristics across different treatment sites to provide valuable insights into the disease's timeline.
+Abstract
 
-Table of Contents:
+Graft-versus-host disease (GvHD) is a multi-systemic disorder that occurs when a transplanted organ’s immune cells recognize the host as foreign and attack the recipient’s body cells. CGvHD can occur following: 1) allogeneic bone transplantation, 2) following transplantation of solid organs that are lymphoid rich, and 3) after transfusion of un-irradiated blood. Generally, it is diagnosed after symptoms persist or appear 100 days after transplantation. 
 
-Project Details
-Installation
-Usage
-Data Sources
-Technologies Used
-Contributors
-License
-Project Details
-Description:
-This project aims to understand the dynamics of CGVHD development in leukemia patients post-allogeneic bone marrow transplantation. By applying advanced statistical methods, it investigates the impact of clinical factors on the time to CGVHD onset, shedding light on potential risk factors and treatment site variations.
+The objective of this analysis is exploration of the factors which impact the time to chronic graft-versus-host disease (CGVHD) in leukemia patients that received an allogeneic bone marrow transplant as it relates to the following clinical characteristics across clinical sites: age, sex, cytomegalovirus immune status (CMV), waiting time to transplant, and disease group. Analysis was conducted using Kaplan-Meier method, generalized gamma Accelerated Time Failure (AFT) model using SAS OnDemand for Academics: SAS Studio. 
 
-Key Features:
-
-In-depth survival analysis
-Examination of clinical characteristics
-Identification of factors influencing CGVHD onset
-Demo:
-Link to Live Demo (if available)
-
-Installation
-Prerequisites:
-To run this project locally, you need the following prerequisites:
+It was found that patients at St. Vincent had a 35% higher time in days to CGVHD compared to the reference level. Conversely, patients at Alfred had a 10.3% decreased time to CGVHD in days compared to the reference level. For patients at OSU, the relative risk of developing CGVHD decreased by 20.4% compared to the reference level.Additionally, leukemia patients who were cytomegalovirus positive had an 11% decrease in time to CGVHD compared to those who were not. Male leukemia patients had a 14% increase in their time to CGVHD compared to female patients across clinical sites. Every one year increase in patient age led to a 0.3% increase in the time to CGVHD. Disease groups also had an impact on the time to CGVHD, with an increase of 15.2% across groups. All covariates were statistically insignificant, suggesting that they may not play a strong role in time to development of the disease. 
 
 
-SAS OnDemand for Academics: SAS Studio (or similar statistical software)
-Installation Steps:
+Azuka Atum - Project Author
 
-Clone this repository.
-
-Set up SAS OnDemand for Academics: SAS Studio or SAS 9 following the official documentation.
-Usage
-Usage Guide:
-To perform a similar analysis, follow these steps:
-
-Load the dataset into your statistical software.
-Apply Kaplan-Meier survival analysis.
-Implement a Generalized Gamma Accelerated Time Failure (AFT) model.
-Interpret the results, focusing on clinical factors' impact on CGVHD onset time.
-
-Code Examples:
-
-
-# Example SAS code for AFT model
-proc lifereg data=dataset;
-model time_to_cgvhd = age sex cmv_status clinical_site disease_group / dist=gamma;
-run;
-
-Data Sources
-Data Description:
-The project utilizes clinical data collected from multiple sites, comprising patient demographics and treatment details.
-
-Data Processing:
-Data already preproccesd for statistical analysis.
-
-Technologies Used
-Programming Languages:
-
-SAS
-Frameworks and Libraries:
-
-
-SAS OnDemand for Academics: SAS Studio
-Contributors
-Team Members:
-
-Azuka Atum - Project Lead
-Contributing:
-We welcome contributions. Please see our Contribution Guidelines for details.
 
 
 
