@@ -12,7 +12,7 @@ The objective of this analysis is exploration of the factors which impact the ti
 It was found that patients at St. Vincent had a 35% higher time in days to CGVHD compared to the reference level. Conversely, patients at Alfred had a 10.3% decreased time to CGVHD in days compared to the reference level. For patients at OSU, the relative risk of developing CGVHD decreased by 20.4% compared to the reference level.Additionally, leukemia patients who were cytomegalovirus positive had an 11% decrease in time to CGVHD compared to those who were not. Male leukemia patients had a 14% increase in their time to CGVHD compared to female patients across clinical sites. Every one year increase in patient age led to a 0.3% increase in the time to CGVHD. Disease groups also had an impact on the time to CGVHD, with an increase of 15.2% across groups. All covariates were statistically insignificant, suggesting that they may not play a strong role in time to development of the disease. 
 
 
-Azuka Atum - Project Author
+@aa1823 - Project Author
 
 
 
